@@ -12,9 +12,7 @@ services:
       POSTGRES_PASSWORD: password
 
   api-propostas:
-    build:
-      dockerfile: Dockerfile
-      context: .
+    image: 'matheuscarv69/api-propostas'
     environment:
       POSTGRES_HOST: postgres-propostas:5432
       POSTGRES_USERNAME: postgres
@@ -153,8 +151,6 @@ services:
 #    network_mode: bridge
     ports:
       - "9090:9090"
-    depends_on:
-      - api-propostas
 
   grafana:
     image: grafana/grafana
