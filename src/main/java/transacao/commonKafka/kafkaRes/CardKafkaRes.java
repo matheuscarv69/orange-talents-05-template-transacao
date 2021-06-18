@@ -1,6 +1,6 @@
 package transacao.commonKafka.kafkaRes;
 
-import transacao.entities.Card;
+import transacao.entities.transaction.entities.Card;
 
 public class CardKafkaRes {
 

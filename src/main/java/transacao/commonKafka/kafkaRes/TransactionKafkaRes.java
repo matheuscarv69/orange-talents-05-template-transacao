@@ -1,6 +1,6 @@
 package transacao.commonKafka.kafkaRes;
 
-import transacao.entities.Transaction;
+import transacao.entities.transaction.entities.Transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

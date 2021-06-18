@@ -1,14 +1,29 @@
-package transacao.entities;
+package transacao.entities.transaction.entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
 public class Transaction {
 
+    @Id
     private String id;
+
+    @NotNull
+    @Column(nullable = false)
     private BigDecimal value;
+
+    @OneToOne(cascade = CascadeType.MERGE)
     private Establishment establishment;
+
+    @OneToOne(cascade = CascadeType.MERGE)
     private Card card;
+
+    @PastOrPresent
+    @NotNull
     private LocalDateTime effectiveIn;
 
     public Transaction(String id,
@@ -25,6 +40,12 @@ public class Transaction {
         this.effectiveIn = effectiveIn;
     }
 
+    // only hibernate
+    @Deprecated
+    public Transaction() {
+
+    }
+
     @Override
     public String toString() {
         return "id='" + id
@@ -32,5 +53,26 @@ public class Transaction {
                 + ", establishment=" + establishment
                 + ", card=" + card
                 + ", effectiveIn=" + effectiveIn;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public Establishment getEstablishment() {
+        return establishment;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public LocalDateTime getEffectiveIn() {
+        return effectiveIn;
     }
 }

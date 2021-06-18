@@ -1,6 +1,6 @@
 package transacao.commonKafka.kafkaRes;
 
-import transacao.entities.Establishment;
+import transacao.entities.transaction.entities.Establishment;
 
 public class EstablishmentKafkaRes {
 
