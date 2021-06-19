@@ -6,7 +6,7 @@ Este projeto é um desafio proposto pela time da Zup Academy para a turma do Ora
 ![Maven Central with version prefix filter](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven/3.6.3?color=orange)
 ![GitHub](https://img.shields.io/github/license/matheuscarv69/orange-talents-05-template-transacao?color=orange)
 
-## 🤔 O que é o Microservice de Transacao?
+## 🤔 O que é o Microservice de Transação?
 
 Ele é um serviço que é responsável por pegar as informações de compras do sistema legado de transações por meio do
 Kafka, isso é feito usando alguns módulos do Spring Boot.
@@ -15,7 +15,7 @@ Basicamente o fluxo principal desse serviço é:
 
 - Um Listener fica escutando um tópico do serviço legado de transações e pega os eventos/mensagens desse tópico e salva
   na base de dados.
-- Para isso acontecer o sistema legado deve receber uma requisição semelhante à essa:
+- Para isso acontecer o sistema legado deve receber um incetivo, isso se dá através de uma requisição semelhante à essa:
   ```bash
   curl --location --request POST 'http://localhost:7777/api/cartoes' \
     --header 'Content-Type: application/json' \
@@ -24,8 +24,14 @@ Basicamente o fluxo principal desse serviço é:
     "email": "<EMAIL DO USUÁRIO LOGADO>"
   }'
   ```
+- A partir daí o Sistema legado passaá a enviar mensagens com a transação para o kafka a cada 1 minuto (no docker-compose tem como aumenta ou diminuir esse intervalo por meio de uma variável de ambiente no serviço Transacao).
+- Para fazer com que essas mensagens parem de ser geradas, o sistema legado deve receber um incentivo também, ele se dá por meio de outra requisição semelhante à essa:
+  ```bash
+  curl --location --request DELETE 'http://localhost:7777/api/cartoes/5541da9c-79c5-44fb-b701-cc50ed07b45d'
+  ```
 - É disponibilizado um endpoint para que o usuário autenticado possa listar as compras efetuadas pelo seu cartão.
-
+- Todos esses endpoints já estão disponibilizados via [Insomnia](https://insomnia.rest/).
+- 
 ## 🛠 Pré-Requisitos
 
 ### 📍 Local
