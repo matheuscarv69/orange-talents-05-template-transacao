@@ -46,7 +46,7 @@ services:
       POSTGRES_SCHEMA: desafio
       KEYCLOAK_ISSUER_URI: http://keycloak:8080/auth/realms/desafio-transacao
       KEYCLOAK_JWKS_URI: http://keycloak:8080/auth/realms/desafio-transacao/protocol/openid-connect/certs
-      KAFKA_HOST: kafka:9092
+      KAFKA_HOST: kafka:29092
       KAFKA_CONSUMER_GROUP_ID: api-transacao-mac
       KAFKA_AUTO-OFFSET-RESET: latest
     ports:
