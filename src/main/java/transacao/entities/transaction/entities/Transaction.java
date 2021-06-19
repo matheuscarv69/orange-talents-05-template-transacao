@@ -46,20 +46,6 @@ public class Transaction {
 
     }
 
-    @Override
-    public String toString() {
-        return "id='" + id
-                + ", value=" + value
-                + ", establishment=" + establishment
-                + ", card=" + card
-                + ", effectiveIn=" + effectiveIn;
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
     public BigDecimal getValue() {
         return value;
     }

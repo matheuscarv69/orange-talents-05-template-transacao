@@ -36,17 +36,6 @@ public class Establishment {
 
     }
 
-    @Override
-    public String toString() {
-        return "name='" + name
-                + ", city='" + city
-                + ", address='" + address;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }

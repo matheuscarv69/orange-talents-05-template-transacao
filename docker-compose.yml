@@ -1,6 +1,6 @@
 version: '3'
 services:
-  # Banco de dados usado na aplicacao api-propostas
+  # Banco de dados usado na aplicacao api-propostas e na api-transacoes
   postgres-propostas:
     image: 'postgres:alpine'
     volumes:
@@ -13,6 +13,7 @@ services:
 
   api-propostas:
     image: 'matheuscarv69/api-propostas'
+    container_name: api-propostas
     environment:
       POSTGRES_HOST: postgres-propostas:5432
       POSTGRES_USERNAME: postgres
@@ -32,6 +33,27 @@ services:
       - 8080:8080
     depends_on:
       - postgres-propostas
+
+  api-transacoes:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: api-transacoes
+    environment:
+      POSTGRES_HOST: postgres-propostas:5432
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_SCHEMA: desafio
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/auth/realms/desafio-transacao
+      KEYCLOAK_JWKS_URI: http://keycloak:8080/auth/realms/desafio-transacao/protocol/openid-connect/certs
+      KAFKA_HOST: kafka:9092
+      KAFKA_CONSUMER_GROUP_ID: api-transacao-mac
+      KAFKA_AUTO-OFFSET-RESET: latest
+    ports:
+      - 8081:8081
+    depends_on:
+      - postgres-propostas
+      - kafka
 
   analise:
     image: 'zupacademy/analise-financeira'
@@ -63,8 +85,8 @@ services:
       LOG_LEVEL: INFO
       KAFKA_HOST: "kafka:29092"
       JAEGER_ENDPOINT: http://jaeger:14268/api/traces
-#      Por padrao o delay eh de 5000 - 5 minutos
-      TRANSACTION_DELAY: 1000
+#      Por padrao o delay eh de 300000 - 5 minutos | 60000 = 1 minuto
+      TRANSACTION_DELAY: 60000
 
   zookeeper:
     image: "confluentinc/cp-zookeeper:5.2.1"

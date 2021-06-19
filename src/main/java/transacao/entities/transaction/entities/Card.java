@@ -28,12 +28,6 @@ public class Card {
     public Card() {
     }
 
-    @Override
-    public String toString() {
-        return "id='" + id
-                + ", email='" + email;
-    }
-
     public String getId() {
         return id;
     }
